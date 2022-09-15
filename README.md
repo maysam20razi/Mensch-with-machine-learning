@@ -1,2 +1,2 @@
-# Mensch-with-machine-learning-
+# Mensch-with-machine-learning
 WIP
