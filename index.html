@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- ver 1.0.0.0 15-jul-2022 -->
+<html lang="en">
+<head>
+    <title>Maysam Razi - Mensch - Machine Learning</title>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="img/icon.jpg">
+    <link rel="stylesheet" href="css/theme.css">
+    <script src="js/scripts.js"></script>
+    <script src="js/AIContoller.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/statistics.js"></script>
+    <script src="js/math-functions.js"></script>
+    <script src="js/ML.js"></script>
+</head>
+<body onload="setupBoard(); setGame(4,0)">
+<div class="header">
+    <h2>Maysam Razi - Mensch - Machine Learning! - artificial intelligence</h2>
+</div>
+<div class="showInformation">
+    <p id="info-dice" class="showValuePosition">0</p>
+    <p id="players-turn" class="showValuePosition">0</p>
+    <p id="epoch-count" class="showValuePosition">0</p>
+</div>
+<div id="gs-debug" class="graphSearch"></div>
+<div class="boardPanel">
+    <div id="board">
+    </div>
+    <div id="image-queen">
+    </div>
+    <div id="point">
+    </div>
+</div>
+<div class="rightPanel">
+    <select id="dice-force" class="button-style-rp">
+        <option>random dice</option>
+        <option>must One</option>
+        <option>must Two</option>
+        <option>must Three</option>
+        <option>must Four</option>
+        <option>must Five</option>
+        <option>must Six</option>
+    </select>
+
+    <button class="button-style-rp" onclick="letPlay()">Let's Play</button>
+    <button id="b-show" class="button-style-rp" onclick="showCommandHelp()">Show Command Help</button>
+	<button class="button-style-rp" onclick="setPawnsPosistion()">Set Position</button>
+    <button class="button-style-rp" onclick="resetPostionGame()">Reset Position</button>
+    <button class="button-style-rp" onclick="reloadPosition()">Reset All</button>
+
+</div>
+<div id="lineCommand" class="info-line">
+
+</div>
+</body>
+</html>
