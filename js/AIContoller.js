@@ -1,10 +1,14 @@
+
+
+
+
 /*
 ===========================================
 Variables and constants test or train
 ===========================================
 */
-const gameNumbersTrain = 500-1;
-var gameNumberPlayTotal = 0,
+const gameNumbersTrain = 100-1;
+var gameNumberPlayTotal = 2000,
 myIndexGroup = 0,
 winnerIndex = 0;
 
@@ -15,7 +19,6 @@ Interface file
 */
 
 function interfaceScriptAI(canMovePawns,countMoveLegal){
-
   let idPawnChosen = -1;
   var indexID =[],
   count=0;
@@ -28,6 +31,7 @@ function interfaceScriptAI(canMovePawns,countMoveLegal){
   if (countMoveLegal == 1){
       idPawnChosen = indexID[0];
   }
+
   else if(countMoveLegal > 1) {
 
     switch (turnPlayerID) {
@@ -37,7 +41,7 @@ function interfaceScriptAI(canMovePawns,countMoveLegal){
 
       break;
       case 1:
-      idPawnChosen =  (myIndexGroup == 1) ? qLearnFeature(indexID) : randomSystem(indexID) ;
+      idPawnChosen =  (myIndexGroup == 1) ? MinimaxSearch(GetState(),1,indexID) : randomSystem(indexID) ;
       if (myIndexGroup == 1) updateCountMoves(idPawnChosen);
       break;
       case 2:
@@ -50,6 +54,7 @@ function interfaceScriptAI(canMovePawns,countMoveLegal){
       break;
     }
   }
+
   return idPawnChosen;
 }
 /*
@@ -145,21 +150,66 @@ function calcHomeValue(indexPlayer){
 Min Max Graph
 ===========================================
 */
-function minMaxSearch(canMovePawns){
+const depthMiniMax = 10;//depht to calculate value of leaves in the minimax nodes
+let scoreNode;
+function MinimaxSearch(currentState,indexPlayer,indexPawnCanMove) {
+
+  console.log(currentState);//for test
+  let r = randomSystem(indexPawnCanMove);
+
+
+  return r;
+}
+function GetState(){
+return [[diceNumber],playerPawnLocationYellow,playerPawnLocationBlue,playerPawnLocationRed,playerPawnLocationGreen];
 
 }
+function GradeNode(state){
+  return 10;
+}
+
 /*
 ===========================================
 Reinforcement  Learning
 ===========================================
 */
-let setPos = "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1";
-let pos =[[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1]];
-var
-gammaLearn = 0.7; // discount factor
-function qLearn(){
+class ML_RL {
+  constructor(){
 
+  }
+
+  #stateIndexHome = [[]];
+  #stateStatePawn =[[]];
+  /*
+  state -> o = out , c = castle , s = first safe home , b = board ->
+  */
+  #movesAll = 0;
+  #movesAllow = 0;
+  #movesHaveChoices = 0;
+
+  _inti_(){
+    for(let i = 0 ;i<4 ;i++)
+      for(let j = 0 ; j<4 ; j++){
+        stateIndexHome[i][j] = -1;
+        stateStatePawn[i][j] = "o";
+      }
+    movesAll = 0;
+    movesAllow = 0;
+    movesHaveChoices = 0;
+  }
+
+  takeReward(){
+    let r = 0;
+    return r;
+  }
+
+  selectPawnIndex(state){
+
+  }
 }
+
+var ML = new ML_RL();
+
 
 /*
 ===========================================
@@ -284,7 +334,7 @@ function save(){
   + ","+featureMoveOnBoard.moveSecondCastle+ ","+featureMoveOnBoard.moveThirdCastle+ ","+featureMoveOnBoard.moveForthCastle + ","
   + featureMoveOnBoard.attackToStrongestEnemy + "], countPlayedGames = "+(gameNumberPlayTotal+1)+";";
 
-	download(data,"DataMenschFeatureLearn","js");
+	//download(data,"DataMenschFeatureLearn","js");
 }
 function download(data, filename, type) {
     var file = new Blob([data], {type: type});
@@ -362,6 +412,7 @@ function rewardSystemThenGameEnded(didWinGame){
 
 function updateCountMoves(idPawn){
   currentCountMove++;
+  console.log(currentCountMove);
   let countOut = calculateQtyOutPawns();
   if(eval(teamColors[turnPlayerID])[idPawn] == -1){
     switch (countOut) {

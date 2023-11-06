@@ -6,11 +6,12 @@ Constants
 */
 const
 speedMovePawn = 1,
-speedStartNewGame =2,
+speedStartNewGame =1,
 rewardDice = 6,
 endGameTeam = 1,
 teamColors = ["playerPawnLocationYellow","playerPawnLocationBlue","playerPawnLocationRed","playerPawnLocationGreen"],
 castleColors = ["isYellowCastleFull","isBlueCastleFull","isRedCastleFull","isGreenCastleFull"];
+
 /*
 ===========================================
 Variables
@@ -32,6 +33,8 @@ isBlueCastleFull = [false,false,false,false],
 isRedCastleFull = [false,false,false,false],
 isGreenCastleFull = [false,false,false,false],
 outPawnChoose = false;
+endGameCurrentRound = false;
+
 /*
 ===========================================
 Variables for board
@@ -117,7 +120,7 @@ function setGame(numberOfPlayers,startID,doesSetPosition = false){
 		playerPawnLocationRed = [-1,-1,-1,-1];
 		playerPawnLocationBlue = [-1,-1,-1,-1];
 		playerPawnLocationGreen = [-1,-1,-1,-1];
-
+		endGameCurrentRound = false;
 		isYellowCastleFull = [false,false,false,false];
 		isBlueCastleFull = [false,false,false,false];
 		isRedCastleFull = [false,false,false,false];
@@ -163,8 +166,10 @@ function setGame(numberOfPlayers,startID,doesSetPosition = false){
 	function changeTurn(){
 		//ادامه داده شود یا خیر
 		checkMyTurn(turnPlayerID);
-		nextTurn();
-		document.getElementById('players-turn').innerText = turnPlayerID;
+		if(!endGameCurrentRound){
+			nextTurn();
+			document.getElementById('players-turn').innerText = turnPlayerID;
+		}
 	}
 
 /*
@@ -305,7 +310,10 @@ function setGame(numberOfPlayers,startID,doesSetPosition = false){
 				rankGroupsID[idGroup] = totalInactivePlayer;
 			}
 		if(totalInactivePlayer === endGameTeam){
+			endGameCurrentRound = true;
 			cmdPrint('Game round No. '+ (gameNumberPlayTotal + 1) +' is ended ');
+			//cmdPrint('Last pos = ' + 	GetState());
+			//cmdPrint('ID = ' + idGroup);
 			let name = ['Green','Yellow','Blue','Red'], groupWinner =[3,0,1,2];
 			winnerIndex = groupWinner[idGroup];
 			cmdPrint(name[idGroup] + ' wins');

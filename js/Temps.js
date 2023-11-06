@@ -1,0 +1,1 @@
+featureMoveOnBoard = {'doesGarb':0,'safeL1':0,'safeL2':0,'safeL3':0,'attackL1':0,'attackL2':0,'attackL3':0,'safeOutL2':0,'safeOutL3':0,'attackOutL2':0,'attackOutL3':0,'moveNearestCastle':0,'moveFarestCastle':0};
